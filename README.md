@@ -119,7 +119,7 @@ Each reconstructed slice will be saved as:
 
 **Note:-** The output will to lettle to dark to see directly and see structure beacuse of low pixal value of image in 'tif' file. We will increase brightness of image.
 
-![image](./3D_CT_Reconstruction_python/images/Screenshot 2025-10-30 223322.png)
+![image](Screenshot 2025-10-30 223322.png)
 
 
 ---
