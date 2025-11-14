@@ -31,9 +31,11 @@ GEOMETRY = {
 def load_projections(path, num_projections, rows, cols):
     """Load projection images into 3D array"""
     print(f"Loading projections from: {path}")
-    
+
+    #collect all the .tif images using glob
     file_list = sorted(glob.glob(os.path.join(path, '*.tif')))
-    
+
+    #we check for errors: maybe the folder has no files, or the number of files doesn’t match
     if len(file_list) == 0:
         print(f"Error: No .tif files found in '{path}'.")
         return None
@@ -42,14 +44,15 @@ def load_projections(path, num_projections, rows, cols):
         print(f"Warning: Found {len(file_list)} files, expected {num_projections}.")
         num_projections = len(file_list)
 
+    #create a NumPy array to store all projection images
     projections_data = np.zeros((rows, num_projections, cols), dtype=np.float32)
 
+    #We now iterate through each projection file
     for i, f_path in enumerate(file_list):
         if (i % 50 == 0):
             print(f"  Loading file {i+1} of {num_projections}...")
-        
+        #We load each .tif image, check that its size matches the detector dimensions
         img = tifffile.imread(f_path).astype(np.float32)
-        
         if img.shape != (rows, cols):
             print(f"Error: Image {f_path} has wrong shape {img.shape}. Expected {(rows, cols)}.")
             return None
